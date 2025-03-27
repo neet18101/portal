@@ -17,10 +17,7 @@ function Navbar() {
   }, []);
 
   return (
-    <header
-      className="header sticky-bar"
-     
-    >
+    <header className="header sticky-bar">
       <div className="container">
         <div className="main-header d-flex justify-content-between align-items-center py-3">
           <div className="header-left d-flex align-items-center">
@@ -134,7 +131,10 @@ function Navbar() {
           </nav>
 
           <div className="header-right d-flex align-items-center">
-            <Link className="text-decoration-none me-3 text-dark" to="/signup">
+            <Link
+              className="text-decoration-none me-3 text-dark"
+              to="/sing-up"
+            >
               Register
             </Link>
             <Link

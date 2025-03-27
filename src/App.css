@@ -8781,3 +8781,8 @@ a.text-decoration-none.me-3.text-dark{
     padding: 8px;
     border-radius: 10px;
 }
+
+button.btn.btn-brand-1.hover-up.w-100 {
+    background-color: #f5953c;
+    color: #ffffff;
+}
