@@ -7,49 +7,29 @@ const LatestJob = () => {
   const descRef = useRef(null);
   const tabsRef = useRef(null);
   const jobsRef = useRef([]);
-  const [activeCategory, setActiveCategory] = useState(1); // Set default active category to 1 (Management)
+  const [activeCategory, setActiveCategory] = useState(null); // Start with no category selected
 
   // Job categories data
   const categories = [
     {
       id: 1,
       name: "Management",
-      icon: "https://jobbox-html-frontend.vercel.app/assets/imgs/page/homepage1/management.svg",
+      icon: "https://opstack-html-frontend.vercel.app/assets/imgs/page/homepage1/management.svg",
     },
     {
       id: 2,
       name: "Marketing & Sale",
-      icon: "https://jobbox-html-frontend.vercel.app/assets/imgs/page/homepage1/marketing.svg",
+      icon: "https://opstack-html-frontend.vercel.app/assets/imgs/page/homepage1/marketing.svg",
     },
     {
       id: 3,
       name: "Finance",
-      icon: "https://jobbox-html-frontend.vercel.app/assets/imgs/page/homepage1/finance.svg",
+      icon: "https://opstack-html-frontend.vercel.app/assets/imgs/page/homepage1/finance.svg",
     },
     {
       id: 4,
       name: "Human Resource",
-      icon: "https://jobbox-html-frontend.vercel.app/assets/imgs/page/homepage1/hr.svg",
-    },
-    {
-      id: 5,
-      name: "Retail & Products",
-      icon: "https://jobbox-html-frontend.vercel.app/assets/imgs/page/homepage1/retail.svg",
-    },
-    {
-      id: 6,
-      name: "Content Writer",
-      icon: "https://jobbox-html-frontend.vercel.app/assets/imgs/page/homepage1/writer.svg",
-    },
-    {
-      id: 7,
-      name: "Furniture Design",
-      icon: "https://jobbox-html-frontend.vercel.app/assets/imgs/page/homepage1/design.svg",
-    },
-    {
-      id: 8,
-      name: "Other",
-      icon: "https://jobbox-html-frontend.vercel.app/assets/imgs/page/homepage1/other.svg",
+      icon: "https://opstack-html-frontend.vercel.app/assets/imgs/page/homepage1/hr.svg",
     },
   ];
 
@@ -123,19 +103,17 @@ const LatestJob = () => {
     },
   ];
 
+  // Initial animation on mount
   useEffect(() => {
-    // Animation timeline
     const tl = gsap.timeline({
       defaults: { ease: "power3.out", duration: 0.8 },
     });
 
-    // Section fade in
     tl.fromTo(
       sectionRef.current,
       { autoAlpha: 0, y: 20 },
       { autoAlpha: 1, y: 0 }
     )
-      // Title and description animation
       .fromTo(
         titleRef.current,
         { autoAlpha: 0, y: 20 },
@@ -148,36 +126,52 @@ const LatestJob = () => {
         { autoAlpha: 1, y: 0 },
         "-=0.4"
       )
-      // Tabs animation
       .fromTo(
         tabsRef.current,
         { autoAlpha: 0, y: 20 },
         { autoAlpha: 1, y: 0 },
         "-=0.3"
-      )
-      // Jobs animation (staggered)
-      .fromTo(
-        jobsRef.current,
-        { autoAlpha: 0, y: 30 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          stagger: 0.1,
-          duration: 0.6,
-        },
-        "-=0.2"
       );
+
+    // Show all jobs by default
+    setActiveCategory(null);
   }, []);
 
-  // Filter jobs by active category
-  const filteredJobs = jobs.filter((job) => job.categoryId === activeCategory);
+  // Animate jobs when category changes
+  useEffect(() => {
+    if (jobsRef.current.length > 0) {
+      // Reset all jobs to hidden state before animating
+      gsap.set(jobsRef.current, { autoAlpha: 0, y: 30 });
 
-  // Add ref to jobs array
+      // Animate them in
+      gsap.to(jobsRef.current, {
+        autoAlpha: 1,
+        y: 0,
+        stagger: 0.1,
+        duration: 0.6,
+        ease: "power3.out",
+      });
+    }
+  }, [activeCategory]);
+
+  // Filter jobs by active category (show all if no category selected)
+  const filteredJobs = activeCategory
+    ? jobs.filter((job) => job.categoryId === activeCategory)
+    : jobs;
+
+  // Add ref to jobs array and clear the array when category changes
   const addToRefs = (el) => {
     if (el && !jobsRef.current.includes(el)) {
       jobsRef.current.push(el);
     }
   };
+
+  // Clear refs when component unmounts or before updating
+  useEffect(() => {
+    return () => {
+      jobsRef.current = [];
+    };
+  }, [activeCategory]);
 
   return (
     <section className="section-box mt-110" ref={sectionRef}>
@@ -185,9 +179,9 @@ const LatestJob = () => {
         <div className="container">
           <div className="text-center">
             <h2
-              className="section-title mb-10"
+              className="section-title mb-10 uppercase"
               ref={titleRef}
-              style={{ opacity: 0 }}
+              style={{ opacity: 0, fontWeight: "bold", color: "#0d1128" }}
             >
               Latest Jobs Post
             </h2>
@@ -203,29 +197,34 @@ const LatestJob = () => {
 
             {/* Categories Tabs */}
             <div
-              className="list-tabs list-tabs-2 mt-30"
+              className="list-tabs d-flex list-tabs-2 mt-30 justify-content-center"
               ref={tabsRef}
               style={{ opacity: 0 }}
             >
               <ul className="nav nav-tabs" role="tablist">
+                <li>
+                  <a
+                    className={activeCategory === null ? "active" : ""}
+                    href="#tab-job-all"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setActiveCategory(null);
+                    }}
+                  >
+                    All Jobs
+                  </a>
+                </li>
                 {categories.map((category) => (
                   <li key={category.id}>
                     <a
-                      className={`${
-                        activeCategory === category.id ? "active" : ""
-                      }`}
-                      id={`nav-tab-job-${category.id}`}
+                      className={activeCategory === category.id ? "active" : ""}
                       href={`#tab-job-${category.id}`}
-                      data-bs-toggle="tab"
-                      role="tab"
-                      aria-controls={`tab-job-${category.id}`}
-                      aria-selected={activeCategory === category.id}
                       onClick={(e) => {
                         e.preventDefault();
                         setActiveCategory(category.id);
                       }}
                     >
-                      <img src={category.icon} alt="jobBox" /> {category.name}
+                      {category.name}
                     </a>
                   </li>
                 ))}
@@ -234,85 +233,69 @@ const LatestJob = () => {
           </div>
 
           <div className="mt-10">
-            <div className="tab-content" id="myTabContent-1">
-              {/* Render tabs for each category */}
-              {categories.map((category) => (
+            <div className="row">
+              {jobs.map((job) => (
                 <div
-                  key={category.id}
-                  className={`tab-pane fade ${
-                    activeCategory === category.id ? "active show" : ""
-                  }`}
-                  id={`tab-job-${category.id}`}
-                  role="tabpanel"
-                  aria-labelledby={`tab-job-${category.id}`}
+                  key={job.id}
+                  className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12"
+                  ref={addToRefs}
+                  style={{ opacity: 0 }}
                 >
-                  <div className="row">
-                    {/* Map through filtered jobs for this category */}
-                    {filteredJobs.map((job) => (
-                      <div
-                        key={job.id}
-                        className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12"
-                        ref={addToRefs}
-                        style={{ opacity: 0 }}
+                  <div className="card-grid-2 grid-bd-16 hover-up">
+                    <div className="card-grid-2-image">
+                      <span
+                        className={`lbl-hot ${
+                          job.type === "Freelancer" ? "bg-green" : ""
+                        }`}
                       >
-                        <div className="card-grid-2 grid-bd-16 hover-up">
-                          <div className="card-grid-2-image">
-                            <span
-                              className={`lbl-hot ${
-                                job.type === "Freelancer" ? "bg-green" : ""
-                              }`}
-                            >
-                              <span>{job.type}</span>
-                            </span>
-                            <div className="image-box">
-                              <figure>
-                                <img
-                                  src={`https://jobbox-html-frontend.vercel.app/assets/imgs/page/homepage2/img4.png`}
-                                  alt="jobBox"
-                                />
-                              </figure>
-                            </div>
+                        <span>{job.type}</span>
+                      </span>
+                      <div className="image-box">
+                        <figure>
+                          <img
+                            src={`https://img.freepik.com/free-vector/hand-drawn-flat-design-api-illustration_23-2149365021.jpg?t=st=1743100429~exp=1743104029~hmac=5dc5bb36a7af4b2bcf2ccd6d59de7ef53b1c901ff31b5d76c585b66c3a4f0c6b&w=740`}
+                            alt="opstack"
+                          />
+                        </figure>
+                      </div>
+                    </div>
+                    <div className="card-block-info">
+                      <h5>
+                        <a href="job-details.html">{job.title}</a>
+                      </h5>
+                      <div className="mt-5">
+                        <span className="card-location mr-15">
+                          {job.location}
+                        </span>
+                        <span className="card-time">{job.time}</span>
+                      </div>
+                      <div className="card-2-bottom mt-20">
+                        <div className="row">
+                          <div className="col-xl-7 col-md-7 mb-2">
+                            {job.tags.map((tag, index) => (
+                              <a
+                                key={index}
+                                className="btn btn-tags-sm mr-5"
+                                href="jobs-grid.html"
+                              >
+                                {tag}
+                              </a>
+                            ))}
                           </div>
-                          <div className="card-block-info">
-                            <h5>
-                              <a href="job-details.html">{job.title}</a>
-                            </h5>
-                            <div className="mt-5">
-                              <span className="card-location mr-15">
-                                {job.location}
-                              </span>
-                              <span className="card-time">{job.time}</span>
-                            </div>
-                            <div className="card-2-bottom mt-20">
-                              <div className="row">
-                                <div className="col-xl-7 col-md-7 mb-2">
-                                  {job.tags.map((tag, index) => (
-                                    <a
-                                      key={index}
-                                      className="btn btn-tags-sm mr-5"
-                                      href="jobs-grid.html"
-                                    >
-                                      {tag}
-                                    </a>
-                                  ))}
-                                </div>
-                                <div className="col-xl-5 col-md-5 text-lg-end">
-                                  <span className="card-text-price">
-                                    {job.salary}
-                                  </span>
-                                  <span className="text-muted">/Hour</span>
-                                </div>
-                              </div>
-                            </div>
-                            <p className="font-sm color-text-paragraph mt-20">
-                              Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit. Recusandae architecto eveniet,
-                              dolor quo repellendus pariatur
-                            </p>
+                          <div className="col-xl-5 col-md-5 text-lg-end">
+                            <span className="card-text-price">
+                              {job.salary}
+                            </span>
+                            <span className="text-muted">/Hour</span>
                           </div>
                         </div>
                       </div>
-                    ))}
+                      <p className="font-sm color-text-paragraph mt-20">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Recusandae architecto eveniet, dolor quo
+                        repellendus pariatur
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}

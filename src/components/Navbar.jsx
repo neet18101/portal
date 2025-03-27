@@ -17,13 +17,17 @@ function Navbar() {
   }, []);
 
   return (
-    <header className="header sticky-bar">
+    <header className="header sticky-bar" style={{ background: "#0d1128" }}>
       <div className="container">
-        <div className="main-header d-flex justify-content-between align-items-center py-3">
+        <div className="main-header d-flex justify-content-between align-items-center">
           <div className="header-left d-flex align-items-center">
             <Link className="header-logo d-flex align-items-center" to="/">
-              {/* <img src="/assets/imgs/template/jobhub-logo.svg" alt="jobBox" height="30" /> */}
-              <span className="ms-2 fw-bold fs-5 text-dark">OPSBRIDGES</span>
+              <img
+                src="/imgs/OpsBridges.svg"
+                alt="opsbridges"
+                style={{ width: "330px" }}
+              />
+              {/* <span className="ms-2 fw-bold fs-5 text-dark">OPSBRIDGES</span> */}
             </Link>
           </div>
 
@@ -131,10 +135,7 @@ function Navbar() {
           </nav>
 
           <div className="header-right d-flex align-items-center">
-            <Link
-              className="text-decoration-none me-3 text-dark"
-              to="/sing-up"
-            >
+            <Link className="text-decoration-none me-3 text-dark" to="/sing-up">
               Register
             </Link>
             <Link

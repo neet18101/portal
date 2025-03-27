@@ -5,10 +5,15 @@ function JobLocation() {
     <>
       <section className="section-box mt-80">
         <div className="container">
-          <div className="text-center">
+          <div className="text-center" data-aos="fade-up">
             <h2
-              className="section-title mb-10 wow animate__ animate__fadeInUp animated"
-              style={{ visibility: "visible", animationName: "fadeInUp" }}
+              className="section-title mb-10 wow animate__ animate__fadeInUp animated uppercase"
+              style={{
+                visibility: "visible",
+                animationName: "fadeInUp",
+                fontWeight: "bold",
+                color: "#0d1128",
+              }}
             >
               Jobs by Location
             </h2>

@@ -50,10 +50,10 @@ const HeroSection = () => {
                   ref={headingRef}
                   style={{ opacity: 0 }}
                 >
-                  Unlock the Career
-                  <span className="color-brand-2"> You Deserve</span>
+                  HIRE TOP
+                  <span className="color-brand-2"> TALENT</span>
                   <br className="d-none d-lg-block" />
-                  Find the Perfect Job Today
+                 AND GET WORK DONE FAST!
                 </h1>
                 <div
                   className="banner-description mt-20"
@@ -72,11 +72,11 @@ const HeroSection = () => {
                   ref={tagsRef}
                   style={{ opacity: 0 }}
                 >
-                  <strong>Popular Searches:</strong>
+                  {/* <strong>Popular Searches:</strong>
                   <a href="#">Designer</a>, <a href="#">Web</a>,{" "}
                   <a href="#">IOS</a>, <a href="#">Developer</a>,{" "}
                   <a href="#">PHP</a>, <a href="#">Senior</a>,{" "}
-                  <a href="#">Engineer</a>
+                  <a href="#">Engineer</a> */}
                 </div>
               </div>
             </div>
@@ -92,7 +92,8 @@ const HeroSection = () => {
                   <img
                     className="img-responsive"
                     src="../imgs/banner1.png"
-                    alt="jobBox"
+                    alt="opsbridges"
+                    style={{ width: "70%" }}
                   />
                 </div>
               </div>

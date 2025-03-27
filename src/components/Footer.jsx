@@ -8,15 +8,19 @@ function Footer() {
           <div className="row">
             <div className="footer-col-1 col-md-3 col-sm-12">
               <a href="index.html">
-                <span
+                {/* <span
                   style={{
                     fontSize: "30px",
                     fontWeight: "bold",
                     textDecoration: "underline",
                   }}
-                >
-                  OPSBRIDGES
-                </span>
+                > */}
+                  <img
+                    src="/imgs/OpsBridges.svg"
+                    alt="opsbridges"
+                    style={{ width: "150px" }}
+                  />
+                {/* </span> */}
               </a>
               <div className="mt-20 mb-20 font-xs color-text-paragraph-2">
                 Unlock the Career You Deserve Find the Perfect Job Today

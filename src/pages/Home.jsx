@@ -15,7 +15,7 @@ function Home() {
         <div className="bg-homepage4"></div>
         <HeroSection/>
         <LatestJob/>
-        <Category/>
+        {/* <Category/> */}
         <JobLocation/>
         <Footer/>
       </main>

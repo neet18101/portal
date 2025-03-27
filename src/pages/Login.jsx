@@ -86,107 +86,45 @@ const LoginPage = () => {
     <>
       <Navbar />
       <main className="main">
-        <section
-          className="pt-100 login-register"
-          ref={containerRef}
-          style={{ opacity: 0 }}
-        >
-          <div className="container">
-            <div className="row login-register-cover">
-              <div className="col-lg-4 col-md-6 col-sm-12 mx-auto">
-                <div className="text-center">
-                  <p
-                    className="font-sm text-brand-2"
-                    ref={welcomeTextRef}
-                    style={{ opacity: 0 }}
-                  >
-                    Welcome back!
-                  </p>
-                  <h2
-                    className="mt-10 mb-5 text-brand-1"
-                    ref={titleRef}
-                    style={{ opacity: 0 }}
-                  >
-                    Member Login
-                  </h2>
-                  <p
-                    className="font-sm text-muted mb-30"
-                    ref={subtitleRef}
-                    style={{ opacity: 0 }}
-                  >
-                    Access to all features. No credit card required.
-                  </p>
-                </div>
-                <form
-                  className="login-register text-start mt-20"
-                  action="#"
-                  ref={formRef}
-                  style={{ opacity: 0 }}
-                >
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="input-1">
-                      Username or Email address *
-                    </label>
-                    <input
-                      className="form-control"
-                      id="input-1"
-                      type="text"
-                      required
-                      name="fullname"
-                      placeholder="Steven Job"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="input-4">
-                      Password *
-                    </label>
-                    <input
-                      className="form-control"
-                      id="input-4"
-                      type="password"
-                      required
-                      name="password"
-                      placeholder="************"
-                    />
-                  </div>
-                  <div className="login_footer form-group d-flex justify-content-between">
-                    <label className="cb-container">
-                      <input type="checkbox" />
-                      <span className="text-small">Remember me</span>
-                      <span className="checkmark"></span>
-                    </label>
-                    <a className="text-muted" href="page-contact.html">
-                      Forgot Password
-                    </a>
-                  </div>
-                  <div className="form-group">
-                    <button
-                      className="btn btn-brand-1 hover-up w-100"
-                      type="submit"
-                      name="login"
-                    >
-                      Login
-                    </button>
-                  </div>
-                  <div className="text-muted text-center">
-                    Don't have an Account?{" "}
-                    <a href="page-signin.html">Sign up</a>
-                  </div>
-                </form>
-              </div>
-              <div
-                className="img-1 d-none d-lg-block"
-                ref={img1Ref}
-                style={{ opacity: 0 }}
-              >
-                <img className="shape-1" src="/imgs/login.png" width={300} />
-              </div>
-              <div className="img-2" ref={img2Ref} style={{ opacity: 0 }}>
-                <img src="/imgs/login1.png" width={300} />
-              </div>
+        <div className="left-container"></div>
+        <div className="right-container">
+          <div className="right-container__box">
+            <div className="right-container-box">
+              <h2 className="right-container__h2">Nice to see you!</h2>
+              <p className="right-container__p">
+                Enter your email and password to sign in
+              </p>
             </div>
+            <div className="input-container">
+              <label htmlFor="email" className="right-container__label">
+                Email
+              </label>
+              <input
+                type="text"
+                className="right-container__input"
+                name="email"
+                placeholder="Your email address"
+              />
+              <label htmlFor="email" className="right-container__label">
+                Password
+              </label>
+              <input
+                type="password"
+                className="right-container__input"
+                name="password"
+                placeholder="Your password"
+              />
+            </div>
+            <div className="toggle-container">
+              <input type="checkbox" className="toggle-box" name="checkbox" />
+              <label htmlFor="checkbox">Remember me</label>
+            </div>
+            <button className="btn">SIGN IN</button>
+            <p className="right-container__bottom-text">
+              Don't have an account? <strong>Sign Up</strong>
+            </p>
           </div>
-        </section>
+        </div>
       </main>
     </>
   );

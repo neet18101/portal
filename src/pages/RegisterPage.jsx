@@ -196,13 +196,13 @@ const RegisterPage = () => {
                 <img
                   className="shape-1"
                   src="assets/imgs/page/login-register/img-1.svg"
-                  alt="JobBox"
+                  alt="opsbridges"
                 />
               </div>
               <div className="img-2" ref={img2Ref} style={{ opacity: 0 }}>
                 <img
                   src="assets/imgs/page/login-register/img-2.svg"
-                  alt="JobBox"
+                  alt="opsbridges"
                 />
               </div>
             </div>
