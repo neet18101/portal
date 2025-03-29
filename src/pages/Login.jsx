@@ -1,128 +1,143 @@
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import React, { useState } from "react";
+import { FaUser } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
+import { FaFacebookSquare } from "react-icons/fa";
+import { FaSquareTwitter } from "react-icons/fa6";
+import { AiFillGoogleSquare } from "react-icons/ai";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
-const LoginPage = () => {
-  const containerRef = useRef(null);
-  const welcomeTextRef = useRef(null);
-  const titleRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const googleBtnRef = useRef(null);
-  const dividerRef = useRef(null);
-  const formRef = useRef(null);
-  const img1Ref = useRef(null);
-  const img2Ref = useRef(null);
+const Loginscreen = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    password: "",
+    rememberMe: false,
+  });
 
-  useEffect(() => {
-    // Create animation timeline
-    const tl = gsap.timeline({
-      defaults: { ease: "power3.out", duration: 0.8 },
-    });
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
 
-    // Section fade in
-    tl.fromTo(
-      containerRef.current,
-      { autoAlpha: 0, y: 20 },
-      { autoAlpha: 1, y: 0 }
-    )
-      // Welcome text animation
-      .fromTo(
-        welcomeTextRef.current,
-        { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0 },
-        "-=0.7"
-      )
-      // Title animation
-      .fromTo(
-        titleRef.current,
-        { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0 },
-        "-=0.6"
-      )
-      // Subtitle animation
-      .fromTo(
-        subtitleRef.current,
-        { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0 },
-        "-=0.5"
-      )
-      // Google button animation
-      .fromTo(
-        googleBtnRef.current,
-        { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0 },
-        "-=0.4"
-      )
-      // Divider animation
-      .fromTo(
-        dividerRef.current,
-        { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0 },
-        "-=0.3"
-      )
-      // Form animation
-      .fromTo(
-        formRef.current,
-        { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0 },
-        "-=0.2"
-      )
-      // Image animations
-      .fromTo(
-        img1Ref.current,
-        { autoAlpha: 0, x: -50 },
-        { autoAlpha: 1, x: 0 },
-        "-=0.5"
-      )
-      .fromTo(
-        img2Ref.current,
-        { autoAlpha: 0, x: 50 },
-        { autoAlpha: 1, x: 0 },
-        "-=0.5"
-      );
-  }, []);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+  };
 
   return (
     <>
       <Navbar />
-      <main className="main">
-        <div className="left-container"></div>
-        <div className="right-container">
-          <div className="right-container__box">
-            <div className="right-container-box">
-              <h2 className="right-container__h2">Nice to see you!</h2>
-              <p className="right-container__p">
-                Enter your email and password to sign in
-              </p>
+      <main style={{ paddingTop: "100px" }}>
+        <div className="container">
+          <div className="row justify-content-center mt-10">
+            <div className="col-12 col-lg-10">
+              <div className="card shadow rounded">
+                <div className="row g-0">
+                  {/* Left side - Illustration */}
+                  <div className="col-md-6 d-md-flex justify-content-center align-items-center">
+                    <img
+                      src="/imgs/banner1.png"
+                      alt="Person sitting on chair with laptop"
+                      className="img-fluid"
+                      width={400}
+                    />
+                  </div>
+
+                  {/* Right side - Form */}
+                  <div className="col-md-6">
+                    <div className="card-body p-4 p-md-5">
+                      <h1 className="fw-bold mb-4 fs-2">Sign In</h1>
+
+                      <form onSubmit={handleSubmit}>
+                        <div className="mb-4">
+                          <div className="input-group">
+                            <span className="input-group-text bg-white border-end-0">
+                              <FaUser />
+                            </span>
+                            <input
+                              type="text"
+                              className="form-control border-start-0"
+                              name="name"
+                              value={formData.name}
+                              onChange={handleChange}
+                              placeholder="Your Name"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="mb-4">
+                          <div className="input-group">
+                            <span className="input-group-text bg-white border-end-0">
+                              <FaLock />
+                            </span>
+                            <input
+                              type="password"
+                              className="form-control border-start-0"
+                              name="password"
+                              value={formData.password}
+                              onChange={handleChange}
+                              placeholder="Password"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="mb-4 form-check">
+                          <input
+                            type="checkbox"
+                            className="form-check-input"
+                            id="rememberMe"
+                            name="rememberMe"
+                            checked={formData.rememberMe}
+                            onChange={handleChange}
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor="rememberMe"
+                          >
+                            Remember me
+                          </label>
+                        </div>
+
+                        <div className="mb-4">
+                          <button
+                            type="submit"
+                            className="btn  w-100 py-2"
+                            style={{
+                              backgroundColor: "#0d1128",
+                              color: "#fff",
+                              fontSize: "18px",
+                              fontWeight: "700px",
+                            }}
+                          >
+                            Log in
+                          </button>
+                        </div>
+                      </form>
+
+                      <div className="text-center" style={{color: "#fff"}}>
+                        <a
+                          href="#"
+                          className="text-decoration-none"
+                          style={{
+                            padding: "12px",
+                            background: " #00a79d",
+                            borderRadius: "10px",
+                           
+                            fontSize: "15px",
+                            fontWeight: "500",
+                          }}
+                        >
+                          Create an account
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="input-container">
-              <label htmlFor="email" className="right-container__label">
-                Email
-              </label>
-              <input
-                type="text"
-                className="right-container__input"
-                name="email"
-                placeholder="Your email address"
-              />
-              <label htmlFor="email" className="right-container__label">
-                Password
-              </label>
-              <input
-                type="password"
-                className="right-container__input"
-                name="password"
-                placeholder="Your password"
-              />
-            </div>
-            <div className="toggle-container">
-              <input type="checkbox" className="toggle-box" name="checkbox" />
-              <label htmlFor="checkbox">Remember me</label>
-            </div>
-            <button className="btn">SIGN IN</button>
-            <p className="right-container__bottom-text">
-              Don't have an account? <strong>Sign Up</strong>
-            </p>
           </div>
         </div>
       </main>
@@ -130,4 +145,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Loginscreen;

@@ -255,6 +255,7 @@ const LatestJob = () => {
                           <img
                             src={`https://img.freepik.com/free-vector/hand-drawn-flat-design-api-illustration_23-2149365021.jpg?t=st=1743100429~exp=1743104029~hmac=5dc5bb36a7af4b2bcf2ccd6d59de7ef53b1c901ff31b5d76c585b66c3a4f0c6b&w=740`}
                             alt="opstack"
+                            width={"500px"}
                           />
                         </figure>
                       </div>

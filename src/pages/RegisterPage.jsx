@@ -1,216 +1,193 @@
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import React, { useState } from "react";
+import { FaUser } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
+import { FaFacebookSquare } from "react-icons/fa";
+import { FaSquareTwitter } from "react-icons/fa6";
+import { AiFillGoogleSquare } from "react-icons/ai";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
-const RegisterPage = () => {
-  // Create refs for animation targets
-  const containerRef = useRef(null);
-  const registerTextRef = useRef(null);
-  const titleRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const googleBtnRef = useRef(null);
-  const dividerRef = useRef(null);
-  const formRef = useRef(null);
-  const formInputsRef = useRef([]);
-  const img1Ref = useRef(null);
-  const img2Ref = useRef(null);
+const SignUpForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    password: "",
+    rememberMe: false,
+  });
 
-  // Add form input refs
-  const addToInputsRef = (el) => {
-    if (el && !formInputsRef.current.includes(el)) {
-      formInputsRef.current.push(el);
-    }
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
-  useEffect(() => {
-    // Create animation timeline
-    const tl = gsap.timeline({
-      defaults: { ease: "power3.out", duration: 0.6 },
-    });
-
-    // Section fade in
-    tl.fromTo(
-      containerRef.current,
-      { autoAlpha: 0, y: 20 },
-      { autoAlpha: 1, y: 0 }
-    )
-      // Register text animation
-      .fromTo(
-        registerTextRef.current,
-        { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0 },
-        "-=0.7"
-      )
-      // Title animation
-      .fromTo(
-        titleRef.current,
-        { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0 },
-        "-=0.6"
-      )
-      // Subtitle animation
-      .fromTo(
-        subtitleRef.current,
-        { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0 },
-        "-=0.5"
-      )
-      // Google button animation
-      .fromTo(
-        googleBtnRef.current,
-        { autoAlpha: 0, y: 20, scale: 0.9 },
-        { autoAlpha: 1, y: 0, scale: 1 },
-        "-=0.4"
-      )
-      // Divider animation
-      .fromTo(
-        dividerRef.current,
-        { autoAlpha: 0, width: 0 },
-        { autoAlpha: 1, width: "100%" },
-        "-=0.3"
-      )
-      // Form container animation
-      .fromTo(
-        formRef.current,
-        { autoAlpha: 0, y: 30 },
-        { autoAlpha: 1, y: 0 },
-        "-=0.2"
-      )
-      // Form inputs staggered animation
-      .fromTo(
-        formInputsRef.current,
-        { autoAlpha: 0, y: 20 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          stagger: 0.1,
-          duration: 0.5,
-        },
-        "-=0.1"
-      )
-      // Image animations
-      .fromTo(
-        img1Ref.current,
-        { autoAlpha: 0, x: -100 },
-        { autoAlpha: 1, x: 0 },
-        "-=0.5"
-      )
-      .fromTo(
-        img2Ref.current,
-        { autoAlpha: 0, x: 100 },
-        { autoAlpha: 1, x: 0 },
-        "-=0.5"
-      );
-  }, []);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+  };
 
   return (
     <>
       <Navbar />
-      <main className="main">
-        <section
-          className="pt-100 login-register"
-          ref={containerRef}
-          style={{ opacity: 0 }}
-        >
-          <div className="container">
-            <div className="row login-register-cover">
-              <div className="col-lg-4 col-md-6 col-sm-12 mx-auto">
-                <div className="text-center">
-                  <p
-                    className="font-sm text-brand-2"
-                    ref={registerTextRef}
-                    style={{ opacity: 0 }}
-                  >
-                    Register
-                  </p>
-                  <h2
-                    className="mt-10 mb-5 text-brand-1"
-                    ref={titleRef}
-                    style={{ opacity: 0 }}
-                  >
-                    Start for free Today
-                  </h2>
+      <main style={{ paddingTop: "100px" }}>
+        <div className="container">
+          <div className="row justify-content-center mt-10">
+            <div className="col-12 col-lg-10">
+              <div className="card shadow rounded">
+                <div className="row g-0">
+                  {/* Left side - Illustration */}
+                  <div className="col-md-6 d-md-flex justify-content-center align-items-center">
+                    <img
+                      src="/imgs/banner1.png"
+                      alt="Person sitting on chair with laptop"
+                      className="img-fluid"
+                      width={400}
+                    />
+                  </div>
+
+                  {/* Right side - Form */}
+                  <div className="col-md-6">
+                    <div className="card-body p-4 p-md-5">
+                      <h1 className="fw-bold mb-4 fs-2">Sign Up</h1>
+
+                      <form onSubmit={handleSubmit}>
+                        <div className="mb-4">
+                          <div className="input-group">
+                            <span className="input-group-text bg-white border-end-0">
+                              <FaUser />
+                            </span>
+                            <input
+                              type="text"
+                              className="form-control border-start-0"
+                              name="name"
+                              value={formData.name}
+                              onChange={handleChange}
+                              placeholder="Your Name"
+                            />
+                          </div>
+                        </div>
+                        <div className="mb-4">
+                          <div className="input-group">
+                            <span className="input-group-text bg-white border-end-0">
+                              <FaUser />
+                            </span>
+                            <input
+                              type="text"
+                              className="form-control border-start-0"
+                              name="name"
+                              value={formData.name}
+                              onChange={handleChange}
+                              placeholder="Your Name"
+                            />
+                          </div>
+                        </div>
+                        <div className="mb-4">
+                          <div className="input-group">
+                            <span className="input-group-text bg-white border-end-0">
+                              <FaUser />
+                            </span>
+                            <input
+                              type="text"
+                              className="form-control border-start-0"
+                              name="name"
+                              value={formData.name}
+                              onChange={handleChange}
+                              placeholder="Your Name"
+                            />
+                          </div>
+                        </div>
+                        <div className="mb-4">
+                          <div className="input-group">
+                            <span className="input-group-text bg-white border-end-0">
+                              <FaUser />
+                            </span>
+                            <input
+                              type="text"
+                              className="form-control border-start-0"
+                              name="name"
+                              value={formData.name}
+                              onChange={handleChange}
+                              placeholder="Your Name"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="mb-4">
+                          <div className="input-group">
+                            <span className="input-group-text bg-white border-end-0">
+                              <FaLock />
+                            </span>
+                            <input
+                              type="password"
+                              className="form-control border-start-0"
+                              name="password"
+                              value={formData.password}
+                              onChange={handleChange}
+                              placeholder="Password"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="mb-4 form-check">
+                          <input
+                            type="checkbox"
+                            className="form-check-input"
+                            id="rememberMe"
+                            name="rememberMe"
+                            checked={formData.rememberMe}
+                            onChange={handleChange}
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor="rememberMe"
+                          >
+                            Remember me
+                          </label>
+                        </div>
+
+                        <div className="mb-4">
+                          <button
+                            type="submit"
+                            className="btn  w-100 py-2"
+                            style={{
+                              backgroundColor: "#0d1128",
+                              color: "#fff",
+                              fontSize: "18px",
+                              fontWeight: "700px",
+                            }}
+                          >
+                            Sing Up
+                          </button>
+                        </div>
+                      </form>
+
+                      <div className="text-center" style={{ color: "#fff" }}>
+                        <a
+                          href="#"
+                          className="text-decoration-none"
+                          style={{
+                            padding: "12px",
+                            background: " #00a79d",
+                            borderRadius: "10px",
+
+                            fontSize: "15px",
+                            fontWeight: "500",
+                          }}
+                        >
+                          Create an account
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <form
-                  className="login-register text-start mt-20"
-                  action="#"
-                  ref={formRef}
-                  style={{ opacity: 0 }}
-                >
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="input-1">
-                    Full Name
-                    </label>
-                    <input
-                      className="form-control"
-                      id="input-1"
-                      type="text"
-                      required
-                      name="fullname"
-                      placeholder="Steven Job"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="input-4">
-                      Password *
-                    </label>
-                    <input
-                      className="form-control"
-                      id="input-4"
-                      type="password"
-                      required
-                      name="password"
-                      placeholder="************"
-                    />
-                  </div>
-                  <div className="login_footer form-group d-flex justify-content-between">
-                    <label className="cb-container">
-                      <input type="checkbox" />
-                      <span className="text-small">Remember me</span>
-                      <span className="checkmark"></span>
-                    </label>
-                    <a className="text-muted" href="page-contact.html">
-                      Forgot Password
-                    </a>
-                  </div>
-                  <div className="form-group">
-                    <button
-                      className="btn btn-brand-1 hover-up w-100"
-                      type="submit"
-                      name="login"
-                    >
-                      Login
-                    </button>
-                  </div>
-                  <div className="text-muted text-center">
-                    Don't have an Account?{" "}
-                    <a href="page-signin.html">Sign up</a>
-                  </div>
-                </form>
-              </div>
-              <div
-                className="img-1 d-none d-lg-block"
-                ref={img1Ref}
-                style={{ opacity: 0 }}
-              >
-                <img
-                  className="shape-1"
-                  src="assets/imgs/page/login-register/img-1.svg"
-                  alt="opsbridges"
-                />
-              </div>
-              <div className="img-2" ref={img2Ref} style={{ opacity: 0 }}>
-                <img
-                  src="assets/imgs/page/login-register/img-2.svg"
-                  alt="opsbridges"
-                />
               </div>
             </div>
           </div>
-        </section>
+        </div>
       </main>
     </>
   );
 };
 
-export default RegisterPage;
+export default SignUpForm;
