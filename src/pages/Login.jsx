@@ -49,7 +49,7 @@ const Loginscreen = () => {
                   {/* Right side - Form */}
                   <div className="col-md-6">
                     <div className="card-body p-4 p-md-5">
-                      <h1 className="fw-bold mb-4 fs-2">Sign</h1>
+                      <h1 className="fw-bold mb-4 fs-2">Sign In</h1>
 
                       <form onSubmit={handleSubmit}>
                         <div className="mb-4">
